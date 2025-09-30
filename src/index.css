@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for smooth scrolling. Lenis adds a class to the body
+   which can be used to disable pointer events while scrolling. */
+.lenis lenis-smooth {
+  scroll-behavior: auto;
+}

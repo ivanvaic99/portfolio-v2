@@ -1,0 +1,3 @@
+/* This empty file ensures Git tracks the public directory in the project.
+ * All static assets such as images, favicons and the CV go here. It
+ * can be removed once other files populate this directory. */
