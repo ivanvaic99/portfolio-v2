@@ -1,42 +1,50 @@
-name: Deploy Vite app to GitHub Pages
+name: Deploy Vite site to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
+  workflow_dispatch:
 
 permissions:
-  contents: read    # za checkout koda
-  pages: write      # za konfigurisanje i deploy na Pages
-  id-token: write   # za deploy_pages akciju
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.x'    # koristimo Node 18 (može i druga verzija)
-          # cache: 'npm'         # <- Ne uključujemo keš da izbegnemo grešku sa lock fajlom
+          node-version: 20    # ili 18; bitno je da je v4 akcija
+          # NEMA cache: npm (to je izazvalo “lock file” error)
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install deps
+        run: npm ci || npm i
 
-      - name: Build project
+      - name: Build
         run: npm run build
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: ./dist
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
-        # (u novijim verzijama automatski koristi GITHUB_TOKEN iz permissions)
