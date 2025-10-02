@@ -2,7 +2,7 @@ name: Deploy Vite site to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -23,10 +23,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          # NEMA cache: 'npm'
+          node-version: 20          # NEMA cache-a
 
-      - name: Install dependencies (ci if lock, else install)
+      # Radi i sa i bez package-lock.json
+      - name: Install deps
         run: |
           if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
             npm ci
@@ -37,8 +37,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Upload build output
-        uses: actions/upload-pages-artifact@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
