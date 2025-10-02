@@ -1,9 +1,8 @@
-﻿name: Deploy Vite site to GitHub Pages
+name: Deploy Vite site to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
-  workflow_dispatch:
+    branches: [main]
 
 permissions:
   contents: read
@@ -20,17 +19,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Node
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - name: Install
-        run: npm ci
+          # VAŽNO: bez cache-a, da ne traži lock fajl
+
+      - name: Install dependencies (ci if lock, else install)
+        run: |
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
       - name: Build
         run: npm run build
+
       - name: Upload build output
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 
