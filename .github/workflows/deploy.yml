@@ -25,7 +25,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # VAŽNO: nema cache ključa -> neće tražiti lock file da bi startovao
 
       - name: Install deps
         run: npm ci
