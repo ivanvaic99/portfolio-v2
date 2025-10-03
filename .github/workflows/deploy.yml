@@ -1,35 +1,35 @@
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+name: Deploy to GitHub Pages
 
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - name: Set up Node
-        uses: actions/setup-node@v5
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: 'npm'
+          node-version: '18'  # Change version as needed
+
       - name: Install dependencies
         run: npm ci
-      - name: Build
+
+      - name: Build project
         run: npm run build
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          path: './dist'
+          path: ./dist  # Change if your build output is in a different folder
+
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
