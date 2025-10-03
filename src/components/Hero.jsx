@@ -21,7 +21,7 @@ export default function Hero() {
           className="flex justify-center md:justify-end"
         >
           <img
-            src="/avatar.png"
+            src={`${import.meta.env.BASE_URL}avatar.png`}
             alt="Ivan Vaic portrait"
             className="w-56 h-56 md:w-64 md:h-64 rounded-full object-cover shadow-lg"
           />

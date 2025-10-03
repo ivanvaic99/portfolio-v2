@@ -10,7 +10,7 @@ const projects = [
     description:
       'Organize your work into Backlog, In Progress and Done columns. Drag and drop tasks, add tags and due dates, filter and search. Works offline via IndexedDB and exports/imports CSV.',
     tech: ['React', 'Tailwind', 'Framer Motion', 'Zustand', 'Dexie', 'dnd‑kit'],
-    cover: '/previews/projecthub_cover_1200x630.png',
+    cover: new URL('projecthub_cover_1200x630.png', import.meta.env.BASE_URL).href,
     live: 'https://ivanvaic99.github.io/projecthub/',
     github: 'https://github.com/ivanvaic99/projecthub',
   },
@@ -20,7 +20,7 @@ const projects = [
     description:
       'Track your income and spending with categories and recurring expenses. Visualise data with line, bar and donut charts. Import/export CSV and enjoy offline access.',
     tech: ['React', 'Tailwind', 'Recharts', 'Dexie', 'date‑fns'],
-    cover: '/previews/fintrack_cover_1200x630.png',
+    cover: new URL('fintrack_cover_1200x630.png', import.meta.env.BASE_URL).href,
     live: 'https://ivanvaic99.github.io/fintrack/',
     github: 'https://github.com/ivanvaic99/fintrack',
   },
@@ -30,7 +30,7 @@ const projects = [
     description:
       'Write and preview markdown posts, tag them and manage draft vs. published states. Export your entire blog as a JSON feed or ZIP archive. Offline support included.',
     tech: ['React', 'Tailwind', 'react‑markdown', 'Dexie'],
-    cover: '/previews/devblog-cms-lite_cover_1200x630.png',
+    cover: new URL('devblog-cms-lite_cover_1200x630.png', import.meta.env.BASE_URL).href,
     live: 'https://ivanvaic99.github.io/devblog-cms-lite/',
     github: 'https://github.com/ivanvaic99/devblog-cms-lite',
   },
@@ -40,7 +40,7 @@ const projects = [
     description:
       'Browse a product catalogue with filters, view details, add items to your cart and generate an order ID at checkout. Orders are stored locally and exportable as CSV.',
     tech: ['React', 'Tailwind', 'Zustand', 'localStorage'],
-    cover: '/previews/shopsprint_cover_1200x630.png',
+    cover: new URL('shopsprint_cover_1200x630.png', import.meta.env.BASE_URL).href,
     live: 'https://ivanvaic99.github.io/shopsprint/',
     github: 'https://github.com/ivanvaic99/shopsprint',
   },
